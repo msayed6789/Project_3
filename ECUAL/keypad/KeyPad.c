@@ -6,8 +6,6 @@ PIn_name FIRST_INPUT;
 volatile u8 Timeout_Count;
 volatile u8 Count_Flag;
 static u8 KEYPAD_GetKey(void);
-//static void Timeout (void);
-//static void Time_Counter (void);
 extern volatile u8 Time_Flag ;
 
 Keypad_Status_en KEYPAD_Init(PIn_name First_Output,PIn_name Firs_Input)
@@ -74,16 +72,3 @@ u8 KEYPAD_GetNum_time(u32 timeout) //timeout is time in sec
 	return key;
 }
 
-//static void Timeout ()
-//{
-	//Timer1_Init(TIMER0_NORMAL_MODE,TIMER1_SCALER_256);
-	//Timer1_OCA_SetCallBack(Time_Counter);
-	//Timer1_OCA_InterruptEnable();
-	//TCNT1=15535;
-	//Count_Flag=0;
-//}
-//static void Time_Counter ()
-//{
-	//Count_Flag++;
-	//TCNT1=15535;
-//}
