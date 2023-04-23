@@ -1,7 +1,8 @@
 
 
-#ifndef DIO_INTERFACE_H_
-#define DIO_INTERFACE_H_
+#ifndef DIO_H_
+#define DIO_H_
+
 
 
 #include "memmap.h"
@@ -90,7 +91,7 @@ void DIO_TogglePin(PIn_name pin);
 
 
 
-#endif /* DIO_INTERFACE_H_ */
+#endif /* DIO_H_ */
 
 
 
