@@ -9,7 +9,7 @@
 #ifndef TEMP_H_
 #define TEMP_H_
 
-#include "ADC.h"
+#include "../../MCAL/ADC/ADC.h"
 
 void Temp_init(PIn_name channel);
 
