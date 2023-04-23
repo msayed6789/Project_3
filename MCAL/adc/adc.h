@@ -9,7 +9,9 @@
 #ifndef ADC_H_
 #define ADC_H_
 
-#include "dio.h"
+#include "memmap.h"
+#include "utlise.h"
+#include "standard_type.h"
 /***********************ADMUX******************************/
 
 ////////////////////////////////////
@@ -64,10 +66,10 @@
 
 
 
-void ADC_init(PIn_name channel, uint8_t V_ref_type , uint8_t Diff_OR_Single , uint8_t ADCH_OR_ADCL , uint8_t *prescaler , uint8_t INT_init);
+void ADC_init(uint8_t channel, uint8_t V_ref_type , uint8_t Diff_OR_Single , uint8_t ADCH_OR_ADCL , uint8_t *prescaler , uint8_t INT_init);
 
 
-uint8_t ADC_Read(PIn_name channel);
+uint32_t ADC_Read(uint8_t channel);
 
 
 
