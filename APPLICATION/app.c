@@ -10,7 +10,7 @@
 
 #define MAX_TEMP      35      //Temperature in Celsius
 #define MIN_TEMP      18      //Temperature in Celsius
-#define DEFAULT_TEMP  20.0
+#define DEFAULT_TEMP  20.0    //Temperature in Celsius
 /******************************************************Wire*****************************************************/
 #define BUZZER_LED    PIND6
 #define KEYPAD_ROW    PINB0
