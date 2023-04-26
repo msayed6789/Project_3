@@ -57,8 +57,7 @@ u8 KEYPAD_GetNum_time(u32 timeout) //timeout is time in sec
 {
 	u8 key=NO_KEY;
 	u8 num=0;
-	Timeout_Count=timeout/(50*32);
-	 TIME_out (timeout*1000);
+	TIME_out (timeout*1000);
 	while(Time_Flag==1)
 	{
 		key=KEYPAD_GetKey();
