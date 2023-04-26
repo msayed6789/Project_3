@@ -133,7 +133,7 @@ then send this string to LCD
 void LCD_sendString (u8 *str)
 {
 	u16 i;
-	for(i = 0;str[i]!= 0; i++)
+	for(i = 0;str[i]!= '\0'; i++)
 	{
 		LCD_sendChar(str[i]);
 	}
@@ -163,7 +163,9 @@ This function Clear the Display
 */
 void LCD_clear(void)
 {
-	LCD_sendcommand(0x01);
+	LCD_sendcommand(0x01);			//clear display
+	Delay(1);						//delay 1ms
+	LCD_sendcommand(0x80);			//cursor at home position
 }
 /************************************************************************/
 /*LCD float into string function                                        */
@@ -207,12 +209,9 @@ then set cursor position according to inputs
 */
 void LCD_setCursor (u8 row , u8 column)
 {
-	u8 i,AC;
-	LCD_sendcommand(0x02);
-	AC = ((40*row)+column);
-	for (i=0;i<AC;i++)
-	{
-		LCD_sendcommand(0x14);
-	}
+	if (row == 0 && column<16)
+	LCD_sendcommand((column & 0x0F)|0x80);	/* Command of first row and required position<16 */
+	else if (row == 1 && column<16)
+	LCD_sendcommand((column & 0x0F)|0xC0);	/* Command of first row and required position<16 */
 	
 }
