@@ -8,15 +8,7 @@
 
 #include "app.h"
 
-#define MAX_TEMP      35       //Temperature in Celsius
-#define MIN_TEMP      18      //Temperature in Celsius
-#define DEFAULT_TEMP  20      //Temperature in Celsius
-/******************************************************Wire*****************************************************/
-#define BUZZER_LED    PIND6
-#define KEYPAD_ROW    PINB0
-#define KEYPAD_COL    PINB4
-#define TEMP_SENSOR   PINA0
-/***************************************************************************************************************/
+
 volatile u32 Req_Temp=DEFAULT_TEMP;
 volatile u32 Act_Temp=0;
 volatile u8 num=0;
