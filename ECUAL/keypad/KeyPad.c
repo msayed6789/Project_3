@@ -11,7 +11,7 @@ extern volatile u8 Time_Flag ;
 Keypad_Status_en KEYPAD_Init(PIn_name First_Output,PIn_name Firs_Input)
 {
 	u8 i=0;
-	if (First_Output-Firs_Input>=ROW||First_Output-Firs_Input>=-ROW)
+	if (First_Output-Firs_Input>=ROW||First_Output-Firs_Input<=-ROW)
 	{
 		FIRST_OUTPUt=First_Output;
 		FIRST_INPUT=Firs_Input;
@@ -58,7 +58,6 @@ u8 KEYPAD_GetNum_time(u32 timeout) //timeout is time in sec
 	u8 key=NO_KEY;
 	u8 num=0;
 	Timeout_Count=timeout/(50*32);
-	//Timeout();
 	 TIME_out (timeout*1000);
 	while(Time_Flag==1)
 	{
