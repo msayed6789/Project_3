@@ -8,17 +8,17 @@
 
 #include "app.h"
 
-#define MAX_TEMP      35      //Temperature in Celsius
+#define MAX_TEMP      35       //Temperature in Celsius
 #define MIN_TEMP      18      //Temperature in Celsius
-#define DEFAULT_TEMP  20.0    //Temperature in Celsius
+#define DEFAULT_TEMP  20      //Temperature in Celsius
 /******************************************************Wire*****************************************************/
 #define BUZZER_LED    PIND6
 #define KEYPAD_ROW    PINB0
 #define KEYPAD_COL    PINB4
 #define TEMP_SENSOR   PINA0
 /***************************************************************************************************************/
-volatile f32 Req_Temp=DEFAULT_TEMP;
-volatile f32 Act_Temp=0;
+volatile u32 Req_Temp=DEFAULT_TEMP;
+volatile u32 Act_Temp=0;
 volatile u8 num=0;
 volatile u8 Loop_flag=1;
 u8 Display_flag=0;
@@ -79,7 +79,7 @@ void App_init(void)
 		switch (num)
 		{
 			case 1:
-			Req_Temp=Req_Temp+1.0;
+			Req_Temp=Req_Temp+1;
 			if (Req_Temp>=MAX_TEMP)
 			{
 				Req_Temp=MAX_TEMP;
@@ -101,7 +101,7 @@ void App_init(void)
 			num=NO_KEY;
 			break;
 			case 2:
-			Req_Temp=Req_Temp-1.0;
+			Req_Temp=Req_Temp-1;
 			if (Req_Temp<=MIN_TEMP)
 			{
 				Req_Temp=MIN_TEMP;
@@ -217,7 +217,7 @@ void App_start(void)
 			switch (num)
 			{
 				case 1:
-				Req_Temp=Req_Temp+1.0;
+				Req_Temp=Req_Temp+1;
 				if (Req_Temp>=MAX_TEMP)
 				{
 					Req_Temp=MAX_TEMP;
@@ -239,7 +239,7 @@ void App_start(void)
 				num=NO_KEY;
 				break;
 				case 2:
-				Req_Temp=Req_Temp-1.0;
+				Req_Temp=Req_Temp-1;
 				if (Req_Temp<=MIN_TEMP)
 				{
 					Req_Temp=MIN_TEMP;
