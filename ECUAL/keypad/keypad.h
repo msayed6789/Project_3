@@ -2,7 +2,7 @@
  * KeyPad.h
  *
  * Created: 12/11/2022 8:40:49 PM
- *  Author: M.Sayed
+ *  Author: Mohamed Sayed
  */ 
 
 
@@ -14,15 +14,14 @@
 #include "timeout.h"
 /*************************config**********************/
 
-#define COL   4
-#define ROW   4
+#define COL   3
+#define ROW   3
 
 #define  NO_KEY  'N'
 
-static u8 KeysArray[ROW][COL]={{'7','8','9','/'},
-{'4','5','6','*'},
-{'1','2','3','-'},
-{'c','0','=','+'}};
+static u8 KeysArray[ROW][COL]={{'1','2','3'},
+{'4','5','6'},
+{'7','8','9'}};
 
 
 /*******************************************************/
