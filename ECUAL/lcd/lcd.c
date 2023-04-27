@@ -20,7 +20,7 @@ And Also make some LCD settings:
 */
 void LCD_init(void)
 {
-	#if Mode == bit_8				//if LCD mode chosen in 8bit mode
+	#if Mode == bit_8			//if LCD mode chosen in 8bit mode
 	DIO_InitPin (D7 ,OUTPUT);		//make data7 pin output
 	DIO_InitPin (D6 ,OUTPUT);		//make data6 pin output
 	DIO_InitPin (D5 ,OUTPUT);		//make data5 pin output
@@ -32,13 +32,13 @@ void LCD_init(void)
 	DIO_InitPin (EN ,OUTPUT);		//make enable pin output
 	DIO_InitPin (RW ,OUTPUT);		//make rw pin output
 	DIO_InitPin (RS ,OUTPUT);		//make rs pin output
-	Delay(20);						//LCD power on delay is always more than 15ms
+	Delay_ms(20);				//LCD power on delay is always more than 15ms
 	LCD_sendcommand(0x38);			//initialization LCD 16x2 in 8bit mode
 	LCD_sendcommand(0x0C);			//display on cursor off
 	LCD_sendcommand(0x06);			//auto increment cursor
 	LCD_sendcommand(0x01);			//clear display
 	LCD_sendcommand(0x80);			//cursor at home position
-	#elif Mode == bit_4				//if LCD mode chosen in 4bit mode
+	#elif Mode == bit_4			//if LCD mode chosen in 4bit mode
 	DIO_InitPin (D7 ,OUTPUT);		//make data7 pin output
 	DIO_InitPin (D6 ,OUTPUT);		//make data6 pin output
 	DIO_InitPin (D5 ,OUTPUT);		//make data5 pin output
@@ -46,7 +46,7 @@ void LCD_init(void)
 	DIO_InitPin (EN ,OUTPUT);		//make enable pin output
 	DIO_InitPin (RW ,OUTPUT);		//make rw pin output
 	DIO_InitPin (RS ,OUTPUT);		//make rs pin output
-	Delay(20);						//LCD power on delay is always more than 15ms
+	Delay_ms(20);				//LCD power on delay is always more than 15ms
 	LCD_sendcommand(0x02);			//initialization LCD in 4bit mode
 	LCD_sendcommand(0x28);			//2 lines, 8x5 pixels in 4bit mode
 	LCD_sendcommand(0x0C);			//display on cursor off
@@ -64,29 +64,29 @@ then it send this command to LCD
 */
 void LCD_sendcommand (u8 cmnd)
 {
-	#if Mode == bit_8					//if LCD mode chosen in 8bit mode
-	DIO_WritePort(LCD_Data_Port,cmnd);	//LCD Data Port = cmnd
+	#if Mode == bit_8				//if LCD mode chosen in 8bit mode
+	DIO_WritePort(LCD_Data_Port,cmnd);		//LCD Data Port = cmnd
 	DIO_WRitePin (RS ,LOW);				//RS = 0 Command register
 	DIO_WRitePin (RW ,LOW);				//RW = 0 write operation
 	DIO_WRitePin (EN ,HIGH);			//EN = 1 high pulse
-	delay(1);							//delay 1us is always more than 450ns
+	delay_us(1);					//delay 1us is always more than 450ns
 	DIO_WRitePin (EN ,LOW);				//EN = 0 low pulse
-	Delay(3);							//delay 3ms
-	#elif Mode == bit_4					//if LCD mode chosen in 4bit mode
-	UPPER_NIPPLE(LCD_Data_Port , cmnd); //Sending upper nipple of cmnd to LCD Data Port
+	Delay_ms(3);					//delay 3ms
+	#elif Mode == bit_4				//if LCD mode chosen in 4bit mode
+	UPPER_NIPPLE(LCD_Data_Port , cmnd); 		//Sending upper nipple of cmnd to LCD Data Port
 	DIO_WRitePin (RS ,LOW);				//RS = 0 Command register
 	DIO_WRitePin (RW ,LOW);				//RW = 0 write operation
 	DIO_WRitePin (EN ,HIGH);			//EN = 1 high pulse
-	delay(1);							//delay 1us is always more than 450ns
+	delay_us(1);					//delay 1us is always more than 450ns
 	DIO_WRitePin (EN ,LOW);				//EN = 0 low pulse
-	Delay(2);							//delay 2ms
-	LOWER_NIPPLE(LCD_Data_Port , cmnd); //Sending lower nipple of cmnd to LCD Data Port
+	Delay_ms(2);					//delay 2ms
+	LOWER_NIPPLE(LCD_Data_Port , cmnd); 		//Sending lower nipple of cmnd to LCD Data Port
 	DIO_WRitePin (RS ,LOW);				//RS = 0 Command register
 	DIO_WRitePin (RW ,LOW);				//RW = 0 write operation
 	DIO_WRitePin (EN ,HIGH);			//EN = 1 high pulse
-	delay(1);							//delay 1us is always more than 450ns
+	delay_us(1);					//delay 1us is always more than 450ns
 	DIO_WRitePin (EN ,LOW);				//EN = 0 low pulse
-	Delay(3);							//delay 3ms
+	Delay_ms(3);					//delay 3ms
 	#endif
 }
 /************************************************************************/
@@ -98,29 +98,29 @@ then send this character to LCD
 */
 void LCD_sendChar (u8 char_data)
 {
-	#if Mode == bit_8						//if LCD mode chosen in 8bit mode
+	#if Mode == bit_8			//if LCD mode chosen in 8bit mode
 	DIO_WritePort(LCD_Data_Port,char_data); //LCD Data Port = char data
-	DIO_WRitePin (RS ,HIGH);				//RS = 1 Data register
-	DIO_WRitePin (RW ,LOW);					//RW = 0 write operation
-	DIO_WRitePin (EN ,HIGH);				//EN = 1 high pulse
-	delay(1);								//delay 1us is always more than 450ns
-	DIO_WRitePin (EN ,LOW);					//EN = 0 low pulse
-	Delay(1);								//delay 1ms
-	#elif Mode == bit_4						//if LCD mode chosen in 4bit mode
+	DIO_WRitePin (RS ,HIGH);		//RS = 1 Data register
+	DIO_WRitePin (RW ,LOW);			//RW = 0 write operation
+	DIO_WRitePin (EN ,HIGH);		//EN = 1 high pulse
+	delay_us(1);				//delay 1us is always more than 450ns
+	DIO_WRitePin (EN ,LOW);			//EN = 0 low pulse
+	Delay_ms(1);				//delay 1ms
+	#elif Mode == bit_4			//if LCD mode chosen in 4bit mode
 	UPPER_NIPPLE(LCD_Data_Port,char_data);  //Sending upper nipple of char data to LCD Data Port
-	DIO_WRitePin (RS ,HIGH);				//RS = 1 Data register
-	DIO_WRitePin (RW ,LOW);					//RW = 0 write operation
-	DIO_WRitePin (EN ,HIGH);				//EN = 1 high pulse
-	delay(1);								//delay 1us is always more than 450ns
-	DIO_WRitePin (EN ,LOW);					//EN = 0 low pulse
-	Delay(2);								//delay 2ms
-	LOWER_NIPPLE(LCD_Data_Port,char_data);  //Sending lower nipple of char data to LCD Data Port	
-	DIO_WRitePin (RS ,HIGH);				//RS = 1 Data register
-	DIO_WRitePin (RW ,LOW);					//RW = 0 write operation
-	DIO_WRitePin (EN ,HIGH);				//EN = 1 high pulse
-	delay(1);								//delay 1us is always more than 450ns
-	DIO_WRitePin (EN ,LOW);					//EN = 0 low pulse
-	Delay(2);								//delay 2ms
+	DIO_WRitePin (RS ,HIGH);		//RS = 1 Data register
+	DIO_WRitePin (RW ,LOW);			//RW = 0 write operation
+	DIO_WRitePin (EN ,HIGH);		//EN = 1 high pulse
+	delay_us(1);				//delay 1us is always more than 450ns
+	DIO_WRitePin (EN ,LOW);			//EN = 0 low pulse
+	Delay_ms(2);				//delay 2ms
+	LOWER_NIPPLE(LCD_Data_Port,char_data);  //Sending lower nipple of char data to LCD Data Port
+	DIO_WRitePin (RS ,HIGH);		//RS = 1 Data register
+	DIO_WRitePin (RW ,LOW);			//RW = 0 write operation
+	DIO_WRitePin (EN ,HIGH);		//EN = 1 high pulse
+	delay_us(1);				//delay 1us is always more than 450ns
+	DIO_WRitePin (EN ,LOW);			//EN = 0 low pulse
+	Delay_ms(2);				//delay 2ms
 	#endif
 }
 /************************************************************************/
@@ -153,7 +153,7 @@ void LCD_createCustomCharacter (u8 *pattern , u8 location )
 	for(i = 0; i<8; i++)
 	{
 		LCD_sendChar(pattern[i]);
-	}	
+	}
 }
 /************************************************************************/
 /*LCD Clear function                                           */
@@ -164,7 +164,7 @@ This function Clear the Display
 void LCD_clear(void)
 {
 	LCD_sendcommand(0x01);			//clear display
-	Delay(1);						//delay 1ms
+	Delay_ms(1);				//delay 1ms
 	LCD_sendcommand(0x80);			//cursor at home position
 }
 /************************************************************************/
@@ -172,7 +172,7 @@ void LCD_clear(void)
 /************************************************************************/
 /*Description
 This function takes float data type inputs
-and it converts the inputs to string 
+and it converts the inputs to string
 then send this string to LCD
 */
 void LCD_floattostring (f32 float_value)
@@ -210,8 +210,8 @@ then set cursor position according to inputs
 void LCD_setCursor (u8 row , u8 column)
 {
 	if (row == 0 && column<16)
-	LCD_sendcommand((column & 0x0F)|0x80);	/* Command of first row and required position<16 */
+	LCD_sendcommand((column & 0x0F)|0x80);	/* Command of first row and required column<16 */
 	else if (row == 1 && column<16)
-	LCD_sendcommand((column & 0x0F)|0xC0);	/* Command of first row and required position<16 */
+	LCD_sendcommand((column & 0x0F)|0xC0);	/* Command of first row and required column<16 */
 	
 }
