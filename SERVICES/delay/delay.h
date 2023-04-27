@@ -10,5 +10,6 @@
 #define DELAY_H_
 #include "timer.h"
 void Delay_ms(u32 milliseconds);
+void delay_us(u32 microseconds);
 
 #endif /* DELAY_H_ */
