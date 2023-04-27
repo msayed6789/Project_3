@@ -8,12 +8,13 @@
 #include "adc.h"
 
 
-void ADC_init(uint8_t channel, uint8_t V_ref_type , uint8_t Diff_OR_Single , uint8_t ADCH_OR_ADCL , uint8_t *prescaler , uint8_t INT_init)
+void ADC_init(PIn_name channel, u8 V_ref_type , u8 Diff_OR_Single , u8 ADCH_OR_ADCL , u8 *prescaler , u8 INT_init)
 {
 	// choose pin_num
-CLR(DDRA,channel);
+	DIO_InitPin(channel,INPUT);
 	
 	//choose V_ref
+	
 	if(V_ref_type == AVCC || V_ref_type == INTERNAL)
 	{
 		ADMUX |= (1<<REFS0);
@@ -26,7 +27,7 @@ CLR(DDRA,channel);
 	//choose ADCH or ADCL
 	if(ADCH_OR_ADCL == ADCHH)
 	{
-		ADMUX |= (1<<ADLAR);
+		CLR_Bit(ADMUX,ADLAR);
 	}
 	
 	
@@ -59,28 +60,19 @@ CLR(DDRA,channel);
 	
 }
 
-
-uint32_t ADC_Read(PIn_name channel)
+#include "LCD.h"
+u16 ADC_Read(PIn_name channel)
 {
 	ADMUX |= (0 & 0x0f);
 	
 	ADCSRA |= (1<<ADSC);
 	
 	while((ADCSRA & (1<<ADIF)) == 0);
+     
+     CLR_Bit(ADCSRA,ADIF);
+	u16 digitalVal = (u16)ADCL | ((u16)ADCH<<8);
 	
-	uint16_t digitalVal = ADCL + (ADCH<<8);
-	//DDRC = 0xff;
-	//DDRD |= (1<<0) | (1<<1);
-	//PORTC = (uint8_t)digitalVal;
-	//PORTD = (uint8_t)(digitalVal>>8);
-	volatile double analogVal = digitalVal * (5.0 / 1024.0);
 	
-	volatile double SensorVal = analogVal; 
-	
-	uint32_t result = SensorVal * 100 ;
-	
-	return result ; 
+	return digitalVal ; 
 	
 }
-
-
