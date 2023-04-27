@@ -3,20 +3,21 @@
  *
  * Created: 4/23/2023 9:49:12 AM
  *  Author: ebrahem
- */ 
+ */
 
 
-#include "sensor.h"
+ #include "sensor.h"
 
-void sensor_init(PIn_name channel)
-{
-	ADC_init( channel , AVCC,Single_ended, ADCLL , FACTOR_2,0);
-}
+ void Temp_init(PIn_name channel)
+ {
+ ADC_init(PINA0 , AVCC, Single_ended, ADCHH , FACTOR_64 ,channel);
+ }
 
 
-uint32_t sensor_Read(PIn_name channel)
-{
-	uint8_t result = ADC_Read(channel);
-	
-	return result;
-}
+ void Temp_Read(PIn_name channel,f32* temp)
+ {
+	u16 adc=ADC_Read(channel);
+	 
+ *temp= ((f32)adc*150)/307.2;
+ 
+ }
