@@ -13,14 +13,14 @@
 #include "sensor.h"
 #include "buzzer.h"
 #include "delay.h"
-/**************************************************************************************************************/
-#define MAX_TEMP      35       //Temperature in Celsius
+/*********************************************************Configuration*****************************************/
+#define MAX_TEMP      35      //Temperature in Celsius
 #define MIN_TEMP      18      //Temperature in Celsius
-#define DEFAULT_TEMP  20      //Temperature in Celsius
+#define DEFAULT_TEMP  20
 /******************************************************Wire*****************************************************/
-#define BUZZER_LED    PIND6
-#define KEYPAD_ROW    PINB0
-#define KEYPAD_COL    PINB4
+#define BUZZER_LED    PINB3
+#define KEYPAD_ROW    PINC2
+#define KEYPAD_COL    PINC5
 #define TEMP_SENSOR   PINA0
 /***************************************************************************************************************/
 void App_init(void);
